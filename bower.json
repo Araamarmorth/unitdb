@@ -11,8 +11,7 @@
         "angular-route": "",
         "underscore": "",
         "angular-underscore": "",
-        "ngDraggable": "",
-        "ngRoute": ""
+        "ngDraggable": ""
     },
 
     "devDependencies": {
