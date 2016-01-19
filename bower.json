@@ -10,7 +10,9 @@
         "angular-sanitize": "",
         "angular-route": "",
         "underscore": "",
-        "angular-underscore": ""
+        "angular-underscore": "",
+        "ngDraggable": "",
+        "ngRoute": ""
     },
 
     "devDependencies": {

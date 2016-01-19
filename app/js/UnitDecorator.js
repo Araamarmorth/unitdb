@@ -51,9 +51,82 @@ unitDb.UnitDecorator = function(blueprint) {
         getDps = function(weapon) {
             return unitDb.dpsCalculator.dps(weapon);
         };
-
+        
+		var content = {
+		// The content of the unit as it will be exposed in the comparator it is
+		// organised as follow:
+		// {Category: [(Group, [(subcategory, value, tooltip)])]}
+			
+			'Defense':[],
+		};
+		
+        var representationExtractionTable = [
+        // A simple way to get most of the content, this table specifies what to
+        // extract, the actual extraction is done in the next for loop
+        // [(category, [([attribute], subcategory, formatting string, tooltip)])]
+			['Economy',[
+				[['Economy', 'BuildCostMass'], ' Mass cost', ' m', 'mass units'],
+				[['Economy', 'BuildCostEnergy'], 'Energy cost', ' e', 'energy units'],
+				[['Economy', 'BuildTime'], 'Time cost', ' s', 'seconds'],
+				[['Economy', 'BuildRate'], 'Build rate', '', 'dimensionless'],
+				[['Economy', 'StorageMass'], 'Mass storage', ' m', 'mass units'],
+				[['Economy', 'StorageEnergy'], 'Energy storage', ' m', 'mass units'],
+				[['Economy', 'ProductionPerSecondMass'], 'Mass yield', ' m/s', 'mass units per second'],
+				[['Economy', 'ProductionPerSecondEnergy'], 'Energy yield', ' e/s', 'energy units per second'],
+				[['Economy', 'MaintenanceConsumptionPerSecondEnergy'], 'Energy drain', ' e/s', 'energy units per second'],
+			]],
+			['Defense',[
+				[['Defense', 'Health'], 'Health', ' hp', 'hitpoints'],
+				[['Defense', 'RegenRate'], 'Regen rate', ' hp/s', 'hitpoints per second'],
+				[['Defense', 'Shield', 'ShieldMaxHealth'], 'Shield health', 'hp', 'hitpoints'],
+				[['Defense', 'Shield', 'ShieldRegenRate'], 'Shield regen rate', ' hp/s', 'hitpoints per second'],
+				[['Defense', 'Shield', 'ShieldSize'], 'Shield size', ' d', 'distance units'],
+				
+				
+			]],
+			['Intel',[
+				[['Intel', 'VisionRadius'], 'Vision radius', ' d', 'distance units'],
+				[['Intel', 'RadarRadius'], 'Radar radius', ' d', 'distance units'],
+				[['Intel', 'SonarRadius'], 'Sonar radius', ' d', 'distance units'],
+			]],
+// 			['Abilities',[
+// 				[['Display', 'Abilities'], '??', '', ''],
+// 			]]
+			
+        ];
+		
+		console.log(blueprint);
+        
+		function getAttribute(object, attributeList) {
+			var attribute = object;
+			for (var attributeIndex in attributeList) {
+				attribute = attribute[attributeList[attributeIndex]];
+				if( typeof attribute == 'undefined' ) return null;
+			}
+			
+			return attribute;
+		}
+		
+		for (var tableIndex in representationExtractionTable) {
+			var categoryName = representationExtractionTable[tableIndex][0];
+			var noGroup = [];
+			for (var thisCatIndex in representationExtractionTable[tableIndex][1]) {
+				var attributeList = representationExtractionTable[tableIndex][1][thisCatIndex][0];
+				var subcategory = representationExtractionTable[tableIndex][1][thisCatIndex][1];
+				var formattingString = representationExtractionTable[tableIndex][1][thisCatIndex][2];
+				var tooltip = representationExtractionTable[tableIndex][1][thisCatIndex][3];
+				var attribute = getAttribute(blueprint, attributeList);
+				if( attribute !== null ) {
+					noGroup.push([subcategory, attribute + formattingString, tooltip]);
+				}
+			}
+			if (noGroup.length > 0) content[categoryName] = [['',noGroup]];
+		}
+		
         var self = {
             id: blueprint.Id,
+            content: content,
+            blueprint: blueprint,
             name: blueprint.General.UnitName,
             description: blueprint.Description,
             faction: blueprint.General.FactionName,
@@ -62,7 +135,7 @@ unitDb.UnitDecorator = function(blueprint) {
             strategicIcon: blueprint.StrategicIconName,
             icon: blueprint.General.Icon || '',
             order: blueprint.BuildIconSortPriority || 1000,
-            fireCycle: fireCycle
+            fireCycle: fireCycle,
         };
 
         self.fullName = fullName(self);
