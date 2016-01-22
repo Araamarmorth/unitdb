@@ -1,4 +1,3 @@
-
 <div class="details">
 <table class="compact-compare"><tbody>
 <colgroup>
@@ -33,8 +32,8 @@
 	<tr ng-repeat="subCat in subCategories" class="sec">
 	<td ng-if="subCat[1] > 0" rowspan={{subCat[1]}}>{{subCat[0]}}</td>
 	<td>{{subCat[3]}}</td>
-	<td ng-repeat="unit in contenders">
-		{{unit.content[subCat[0]][subCat[2]][1][subCat[3]][0]}}
+	<td ng-repeat="unit in contenders" title="{{unit.content[subCat[0]][subCat[2]][1][subCat[3]][1]}}"><!--the tooltip-->
+		{{unit.content[subCat[0]][subCat[2]][1][subCat[3]][0]}}<!--the value for this category, group and subcategory-->
 	</td>
 	</tr>
 </tbody>

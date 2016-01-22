@@ -9,7 +9,7 @@ unitDb.services = {
 
         this.$get = [function() {
             return {
-                items: _.map(unitIndex, function(u) { return unitDb.UnitDecorator(u); }),
+                items: _.map(unitIndex, unitDb.UnitDecorator),
                 contenders: []
             };
         }];

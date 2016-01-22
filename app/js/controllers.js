@@ -172,9 +172,6 @@ unitDb.controllers = {
 				var groupNumber = 0;
 				var group = catDict[catName][groupNumber];
 				
-				console.log(catDict[catName]);
-				console.log('group');
-				console.log(group);
 				var groupName = group[0];
 				var subCatList = Object.keys(group);
 				
@@ -188,9 +185,6 @@ unitDb.controllers = {
 				$scope.subCategories[catStart][1] = $scope.subCategories.length - catStart;
 				
 			}
-			
-			console.log('$scope.subCategories');
-			console.log($scope.subCategories);
 		}
 		
 		computeCategories();

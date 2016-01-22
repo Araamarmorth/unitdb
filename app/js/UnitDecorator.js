@@ -184,8 +184,5 @@ unitDb.UnitDecorator = function(blueprint) {
 		});
 	}
 	
-	console.log('unit');
-	console.log(self);
-	
 	return _.extend(self, blueprint);
 };
