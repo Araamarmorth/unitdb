@@ -95,28 +95,77 @@ unitDb.controllers = {
 			$location.path(newURL);
 		}
 		
-		$scope.categories = [];
-		$scope.subCategories = [
-			['Defense', 'Health'],
-		];
-		
 		function computeCategories() {
-			var catDict = {};
+		// Creates the categories and sub-categories for the tab compairison
+			var catDict = {}; // catDict is of the form:
+			//{category_name: [{subcategory_name: true}]} : an object with for each 
+			// category a property containing a array, with for a each group
+			// an object containt the group's subcategories
 			
+			//First we go through all selected units
 			for (var unitIndex in $scope.contenders) {
 				var unit = $scope.contenders[unitIndex];
-				for (var catIndex in unit.content) {
-					catDict[catIndex] = true;
+				for (var catName in unit.content) {
+					
+					if (catDict[catName] === undefined) catDict[catName] = [];
+					
+					for (var groupIndex in unit.content[catName]){
+						
+						if (catDict[catName][groupIndex] === undefined) catDict[catName][groupIndex] = {};
+						
+						var groupSubcats = catDict[catName][groupIndex];
+						
+						for (var subCatName in unit.content[catName][groupIndex][1]) {
+							groupSubcats[subCatName] = true;
+						}
+					}
 				}
 			}
 			
+			
+			// Categories are simply the keys of the dict: an array containing 
+			// every available category name
 			$scope.categories = Object.keys(catDict);
-			console.log($scope.categories);
+			
+			// Subcategories are more complex, as they work with groups:
+			// It an array containing tuples of :
+			// (category name, category row span, group number, subcategory name)
+			$scope.subCategories = [];
+			
+			for (var catIndex in $scope.categories) {
+				
+				var catName = $scope.categories[catIndex];
+				var catStart = $scope.subCategories.length;
+				
+				//TODO: More than one group
+				var groupNumber = 0;
+				var group = catDict[catName][groupNumber];
+				
+				console.log(catDict[catName]);
+				console.log('group');
+				console.log(group);
+				var groupName = group[0];
+				var subCatList = Object.keys(group);
+				
+				for (var subCatIndex in subCatList) {
+					
+					var subCatName = subCatList[subCatIndex];
+					$scope.subCategories.push([catName, 0, groupNumber, subCatName]);
+				}
+				
+				//Adjust the row span of the category
+				$scope.subCategories[catStart][1] = $scope.subCategories.length - catStart;
+				
+			}
+			
+			console.log('$scope.subCategories');
+			console.log($scope.subCategories);
 		}
 		
 		computeCategories();
 		
-		$scope.moveUnit = function(dropIndex, dragIndex, evt){
+		$scope.moveUnit = function(dropIndex, dragIndex){
+			//evt is not used
 			//Change the index of a unit in the compare view
 			var newContenders = $scope.contenders.slice();
 			var dragObject = $scope.contenders[dragIndex];
