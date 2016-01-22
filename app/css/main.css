@@ -161,6 +161,11 @@ footer {
     clear: both;
     text-align: right;
 }
+ul {
+    list-style-type: none;
+    padding:0;
+    margin:0;
+}
 .glow {
     animation: neon-glow 1.5s ease-in-out infinite alternate;
 }
@@ -284,11 +289,61 @@ h1.seraphim { background-image: url(../img/SC_Seraphim.jpg) }
 }
 .details .thumb {
     float: left;
-    margin-right: 1em;
+    margin-right: 0.5em;
 }
 .details .ic {
     display: inline-block;
     vertical-align: middle;
+}
+
+[ng-drag]{
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+[ng-drag]{
+	cursor: move;
+}
+
+/*[ng-drag].drag-over{
+	border:solid 1px red;
+}*/
+
+[ng-drop].drag-enter{
+	opacity: 0.25;
+}
+
+[ng-drag].dragging{
+	position: relative;
+	opacity: 0.9;
+}
+
+[ng-drag].compact-bin{
+	opacity: 0.9;
+	background-color: rgba(45,120,178, .2);
+}
+
+.compact-bin{
+	background-color: rgba(255,100,100,0.2);
+}
+
+.remove-unit{
+	float: right;
+	margin: 0;
+	margin-left: 0.5em;
+	padding: 0.5em;
+	background-color: rgba(255,255,255,0.1);
+}
+
+.group-header {
+	padding-top: 5px;
+	height: 20px;
+}
+
+.tab-compare li {
+	white-space: nowrap;
 }
 
 /* full mode */
