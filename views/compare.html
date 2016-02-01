@@ -1,1 +1,1 @@
-<section><unit ng-repeat="u in contenders" content="u"></unit></section><aside class="filters"></aside>
+<compact-view ng-if="compareFormat=='compact'"></compact-view><tab-view ng-if="compareFormat=='tab'"></tab-view><section ng-if="compareFormat=='normal'"><view-switcher></view-switcher><unit ng-repeat="u in contenders" content="u"></unit></section>
