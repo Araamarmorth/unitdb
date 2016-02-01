@@ -15,7 +15,7 @@ var representationExtractionTable = [
 	[['Economy', 'BuildTime'], 'Time cost', ' s', 'seconds'],
 	[['Economy', 'BuildRate'], 'Build rate', '', 'dimensionless'],
 	[['Economy', 'StorageMass'], 'Mass storage', ' m', 'mass units'],
-	[['Economy', 'StorageEnergy'], 'Energy storage', ' m', 'mass units'],
+	[['Economy', 'StorageEnergy'], 'Energy storage', ' e', 'energy units'],
 	[['Economy', 'ProductionPerSecondMass'], 'Mass yield', ' m/s', 'mass units per second'],
 	[['Economy', 'ProductionPerSecondEnergy'], 'Energy yield', ' e/s', 'energy units per second'],
 	[['Economy', 'MaintenanceConsumptionPerSecondEnergy'], 'Energy drain', ' e/s', 'energy units per second'],

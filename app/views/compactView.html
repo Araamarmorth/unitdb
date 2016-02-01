@@ -1,0 +1,42 @@
+<div class="details">
+<table class="compact-compare"><tbody>
+<colgroup>
+	<col>
+	<col>
+	<col ng-repeat="item in contenders" class="{{ item.faction|lowercase }}">
+	</colgroup>
+	
+	<tr>
+	<!--The first cell: it contains some buttons-->
+	<td colspan=2>
+		<view-switcher></view-switcher>
+		<span class="compact-bin"
+			ng-drop="true" ng-drop-success="removeUnit($data)"
+		>X
+		</span>
+	</td>
+	
+	<!--The col headers: one draggable unit each-->
+	<td ng-repeat="item in contenders" class="{{ item.faction|lowercase }}"
+		ng-drag="true" ng-drag-data="$index"
+		ng-drop="true" ng-drop-success="moveUnit($index, $data)"
+	>
+	
+	<header>
+		<span class="thumb icon-{{ item.id }}" title="{{ item.fullName }}">
+			<span class="strategic icon-{{ item.faction  }}_{{ item.strategicIcon}}" ></span>
+		</span>
+	</header>
+	</td></tr>
+	
+	<!--The following rows: a subcategory each-->
+	<tr ng-repeat="subCat in subCategories" class="sec">
+	<td ng-if="subCat[1] > 0" rowspan={{subCat[1]}}>{{subCat[0]}}</td>
+	<td>{{subCat[3]}}</td>
+	<td ng-repeat="unit in contenders" title="{{unit.content[subCat[0]][subCat[2]][1][subCat[3]][1]}}"><!--the tooltip-->
+		{{unit.content[subCat[0]][subCat[2]][1][subCat[3]][0]}}<!--the value for this category, group and subcategory-->
+	</td>
+	</tr>
+</tbody>
+</table>
+</div>

@@ -98,6 +98,12 @@ unitDb.controllers = {
         $scope.contenders = _.sortBy(_.filter(data.items, function(x) { return _.contains(ids, x.id); }),
                                     function(x) { return ids.indexOf(x.id); });
 		
+		$scope.compareFormat = 'compact';//or 'normal'
+		
+		$scope.switchCompareFormat = function(newFormat) {
+			$scope.compareFormat = newFormat;
+		};
+		
 		function getURLFromContenders(){
 			var newURL = '';
 			for (var unitNb in $scope.contenders) {
@@ -165,20 +171,20 @@ unitDb.controllers = {
 			
 			for (var catIndex in $scope.categories) {
 				
-				var catName = $scope.categories[catIndex];
+				var catName2 = $scope.categories[catIndex];
 				var catStart = $scope.subCategories.length;
 				
 				//TODO: More than one group
 				var groupNumber = 0;
-				var group = catDict[catName][groupNumber];
+				var group = catDict[catName2][groupNumber];
 				
-				var groupName = group[0];
+				//var groupName = group[0];
 				var subCatList = Object.keys(group);
 				
 				for (var subCatIndex in subCatList) {
 					
-					var subCatName = subCatList[subCatIndex];
-					$scope.subCategories.push([catName, 0, groupNumber, subCatName]);
+					var subCatName2 = subCatList[subCatIndex];
+					$scope.subCategories.push([catName2, 0, groupNumber, subCatName2]);
 				}
 				
 				//Adjust the row span of the category

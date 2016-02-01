@@ -17,5 +17,29 @@ unitDb.directives = {
                 item: '=content'
             }
         };
-    }]
+    }],
+    
+	viewSwitcher: [function() {
+		return {
+			restrict: 'E',
+			replace: true,
+			templateUrl: 'views/viewSwitcher.html',
+		};
+	}],
+	
+	compactView: [function() {
+		return {
+			restrict: 'E',
+			replace: true,
+			templateUrl: 'views/compactView.html',
+		};
+	}],
+	
+	tabView: [function() {
+		return {
+			restrict: 'E',
+			replace: true,
+			templateUrl: 'views/tabView.html',
+		};
+	}]
 };
